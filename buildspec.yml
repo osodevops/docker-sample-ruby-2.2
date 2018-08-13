@@ -10,9 +10,9 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t $IMAGE .
-      - "docker tag $IMAGE $REPO/$IMAGE:${CODEBUILD_BUILD_ID}"
+      - "docker tag $IMAGE $REPO/$IMAGE:${CODEBUILD_BUILD_ID##*:}"
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - "docker push $REPO/$IMAGE:${CODEBUILD_BUILD_ID}"
+      - "docker push $REPO/$IMAGE:${CODEBUILD_BUILD_ID##*:}"
